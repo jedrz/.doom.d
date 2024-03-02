@@ -83,7 +83,7 @@
        (javascript +lsp)
        lua
        markdown
-       org
+       (org +crypt +journal +pretty)
        (python +lsp)
        (scala +lsp)
        sh

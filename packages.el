@@ -21,3 +21,21 @@
 (package! diff-hl)
 
 (package! highlight-symbol)
+
+(package! org-superstar)
+
+(package! ox-jira)
+
+(package! orgtbl-aggregate)
+
+(package! org-gcal)
+
+(package! org-tree-slide)
+
+(package! vulpea)
+
+(package! consult-org-roam)
+
+(package! git-auto-commit-mode)
+
+(package! dired-imenu)
