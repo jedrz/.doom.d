@@ -17,3 +17,7 @@
 
 ;; Conversion of names (upcase, camelcase, uppercase, etc.).
 (package! string-inflection)
+
+(package! diff-hl)
+
+(package! highlight-symbol)

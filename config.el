@@ -218,3 +218,12 @@
 
 ;; Eval and replace anywhere.
 (bind-key "C-x E" #'eval-and-replace)
+
+
+;;; Major modes
+
+;; Highlight changes made to files under vc.
+(use-package! diff-hl
+  :defer t
+  :init
+  (add-hook 'prog-mode-hook #'diff-hl-mode))
