@@ -247,7 +247,7 @@
 
 ;; Configuration based on https://emacs.cafe/emacs/orgmode/gtd/2017/06/30/orgmode-gtd.html
 
-(setq org-directory "~/Dokumenty/org")
+(setq org-directory (file-truename"~/Dokumenty/org"))
 
 (defvar my-org-base-agenda-files '("~/Dokumenty/org/gtd/inbox.org"
                                    "~/Dokumenty/org/gtd/gtd.org"
@@ -256,11 +256,6 @@
 
 (use-package! org
   :defer t
-  :bind
-  (("C-c a" . org-agenda)
-   ("C-c l" . org-store-link)
-   ("C-c b" . org-switchb)
-   ("C-c k" . org-capture))
   :init
   (setq org-export-backends '(ascii html icalendar latex odt md))
   :config
@@ -396,10 +391,12 @@
 ;; Based on:
 ;; https://systemcrafters.net/build-a-second-brain-in-emacs/5-org-roam-hacks/
 ;; https://d12frosted.io/posts/2021-01-16-task-management-with-roam-vol5.html
+
+(setq org-roam-directory (file-truename "~/Dokumenty/org/roam"))
+
 (use-package! org-roam
   :defer t
   :custom
-  (org-roam-directory "~/Dokumenty/org/roam")
   (org-roam-capture-templates
    '(("d" "default" plain
       "%?"
@@ -507,14 +504,15 @@ tasks."
    consult-org-roam-forward-links
    :preview-key "M-."))
 
-;; TODO: does not work
-(map! :map general-override-mode-map
-      "C-c n f" #'consult-org-roam-file-find
-      "C-c n r" #'consult-org-roam-search
-      "C-c n b" #'consult-org-roam-backlinks
-      "C-c n l" #'consult-org-roam-forward-links
-      "C-c n i" #'org-roam-node-insert
-      "C-c n w" #'org-roam-refile)
+(add-hook 'doom-init-ui-hook
+          (lambda ()
+            (map! :map general-override-mode-map
+                  "C-c n f" #'consult-org-roam-file-find
+                  "C-c n r" #'consult-org-roam-search
+                  "C-c n b" #'consult-org-roam-backlinks
+                  "C-c n l" #'consult-org-roam-forward-links
+                  "C-c n i" #'org-roam-node-insert
+                  "C-c n w" #'org-roam-refile)))
 
 
 ;; Smartparens
