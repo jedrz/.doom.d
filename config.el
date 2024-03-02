@@ -628,6 +628,17 @@ tasks."
    ("C-c A" . embark-dwim)        ;; good alternative: M-.
    ("C-h B" . embark-bindings)))  ;; alternative for `describe-bindings'
 
+(use-package! orderless
+  :defer t
+  :init
+  ;; Configure a custom style dispatcher (see the Consult wiki)
+  ;; (setq orderless-style-dispatchers '(+orderless-consult-dispatch orderless-affix-dispatch)
+  ;;       orderless-component-separator #'orderless-escapable-split-on-space)
+  (setq completion-styles '(orderless basic)
+        orderless-matching-styles '(orderless-literal orderless-flex)
+        completion-category-defaults nil
+        completion-category-overrides '((file (styles partial-completion)))))
+
 ;;; Dired
 (use-package! dired-imenu
   :defer t

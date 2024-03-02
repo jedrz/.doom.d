@@ -39,3 +39,5 @@
 (package! git-auto-commit-mode)
 
 (package! dired-imenu)
+
+(package! dired-open)
