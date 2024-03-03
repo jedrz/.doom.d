@@ -161,6 +161,11 @@
     (setq google-this-keybind (kbd "C-x g"))
     (google-this-mode 1)))
 
+(use-package! ws-butler
+  :defer t
+  :config
+  (setq ws-butler-keep-whitespace-before-point t))
+
 
 ;;; Core key bindings.
 
@@ -199,13 +204,6 @@
 (bind-key "M-t w" #'transpose-words)
 (bind-key "M-t s" #'transpose-sexps)
 (bind-key "M-t p" #'transpose-params)
-
-(bind-key "<f2>"
-          (defhydra hydra-zoom ()
-            "zoom"
-            ("+" text-scale-increase "in")
-            ("-" text-scale-decrease "out")
-            ("0" (text-scale-adjust 0) "reset" :color blue)))
 
 ;;;###autoload
 (defun eval-and-replace ()
