@@ -120,6 +120,10 @@
 (add-hook 'text-mode-hook #'auto-fill-mode)
 (add-hook 'text-mode-hook #'flyspell-mode)
 
+;; Wrap text with polish quotation characters.
+(after! smartparens
+  (sp-local-pair 'text-mode "„" "”"))
+
 ;; Show the current function name in the header line only in prog modes.
 (which-function-mode 1)
 (add-hook 'prog-mode-hook
@@ -253,10 +257,10 @@
 
 (defconst my-lisp-modes
   (mapcar (lambda (hook)
-          (let ((hook-name (symbol-name hook)))
-            (intern (substring hook-name 0
-                               (- (length hook-name) (length "-hook"))))))
-        my-lisp-mode-hooks))
+            (let ((hook-name (symbol-name hook)))
+              (intern (substring hook-name 0
+                                 (- (length hook-name) (length "-hook"))))))
+          my-lisp-mode-hooks))
 
 (with-eval-after-load 'smartparens
   ;; paredit's wrap-round.
