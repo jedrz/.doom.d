@@ -1,6 +1,7 @@
 ;;; $DOOMDIR/config.el -*- lexical-binding: t; -*-
 
-(add-to-list 'load-path (concat doom-user-dir "private") t)
+(add-to-list 'load-path doom-user-dir t)
+(load "private.el")
 
 ;;; Appearance
 (setq doom-font "JetBrains Mono 10")
@@ -429,9 +430,7 @@
     (add-hook 'org-agenda-mode-hook #'org-gcal-sync)
     (add-hook 'org-capture-after-finalize-hook #'org-gcal-sync))
   :config
-  (progn
-    (load "setup-org-mode-private.el")
-    (setq org-gcal-down-days 730)))
+  (setq org-gcal-down-days 730))
 
 (use-package! org-tree-slide
   :defer t
