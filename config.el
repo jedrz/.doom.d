@@ -566,7 +566,7 @@ tasks."
 
 
 ;; Smartparens
-(use-package smartparens
+(use-package! smartparens
   :defer t
   :config
   ;; Highlights matching pairs
