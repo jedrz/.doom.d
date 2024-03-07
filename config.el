@@ -699,3 +699,8 @@ tasks."
   :bind
   (:map dired-mode-map
         ("<C-return>" . dired-open-xdg)))
+
+;; Edit text in browser with GhostText.
+(use-package! atomic-chrome
+  :init
+  (atomic-chrome-start-server))

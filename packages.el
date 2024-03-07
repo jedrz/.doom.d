@@ -41,3 +41,5 @@
 (package! dired-imenu)
 
 (package! dired-open)
+
+(package! atomic-chrome)
