@@ -36,6 +36,8 @@
 
 (package! consult-org-roam)
 
+(package! ox-clip)
+
 (package! git-auto-commit-mode)
 
 (package! dired-imenu)

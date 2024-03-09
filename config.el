@@ -564,6 +564,10 @@ tasks."
                   "C-c n i" #'org-roam-node-insert
                   "C-c n w" #'org-roam-refile)))
 
+(use-package! ox-clip
+  :defer t
+  :bind
+  ("M-W" . ox-clip-formatted-copy))
 
 ;; Smartparens
 (use-package! smartparens
