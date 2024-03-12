@@ -5,7 +5,6 @@
 
 ;;; Appearance
 (setq doom-font "JetBrains Mono 10")
-(setq doom-theme 'doom-monokai-pro)
 
 ;; Absolute line numbers.
 (setq display-line-numbers-type t)
