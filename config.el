@@ -23,6 +23,9 @@
 
 ;;; General settings
 
+;; Do not ask before killing Emacs.
+(setq confirm-kill-emacs nil)
+
 ;; Display transient menu with isearch keybindings.
 (use-package! cc-isearch-menu
   :defer t
