@@ -74,6 +74,12 @@
   ;; Start week at Monday.
   (setq calendar-week-start-day 1))
 
+(after! auth-source
+  (setq auth-source-save-behavior nil))
+
+(after! plstore
+  (setq plstore-cache-passphrase-for-symmetric-encryption t))
+
 (use-package! browse-kill-ring
   :bind
   ("C-x C-y" . browse-kill-ring))
@@ -156,7 +162,7 @@
   ("C-+" . evil-numbers/inc-at-pt))
 
 ;; Display major mode key bindings in popup menu.
-(use-package discover-my-major
+(use-package! discover-my-major
   :bind
   ("C-h C-m" . discover-my-major))
 
