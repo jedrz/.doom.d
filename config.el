@@ -684,8 +684,8 @@ tasks."
 (use-package! embark
   :defer t
   :bind
-  (("C-c a" . embark-act)         ;; pick some comfortable binding
-   ("C-c A" . embark-dwim)        ;; good alternative: M-.
+  (("C-c a" . embark-dwim)
+   ("C-c A" . embark-act)
    ("C-h B" . embark-bindings)))  ;; alternative for `describe-bindings'
 
 (use-package! orderless
