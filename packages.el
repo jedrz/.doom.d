@@ -1,6 +1,4 @@
 ;; -*- no-byte-compile: t; -*-
-(package! cc-isearch-menu)
-
 (package! browse-kill-ring)
 
 (package! buffer-move)
