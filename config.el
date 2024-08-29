@@ -700,6 +700,10 @@ tasks."
         completion-category-overrides '((file (styles partial-completion)))))
 
 ;;; Dired
+(after! dired-x
+  ;; Omit hidden files.
+  (setq dired-omit-files (concat dired-omit-files "\\|^\\.[^\\.].*$")))
+
 (use-package! dired-imenu
   :defer t
   :commands (dired-setup-imenu)
