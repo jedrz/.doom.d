@@ -393,9 +393,6 @@
             (lambda ()
               (add-hook 'before-save-hook 'org-align-all-tags nil t)))
 
-  ;; Autosave org mode buffers.
-  (add-hook 'auto-save-hook #'org-save-all-org-buffers)
-
   ;; Org babel
   (org-babel-do-load-languages
    'org-babel-load-languages
