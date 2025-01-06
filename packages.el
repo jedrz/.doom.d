@@ -43,3 +43,5 @@
 (package! dired-open)
 
 (package! atomic-chrome)
+
+(package! pyvenv)
