@@ -318,6 +318,8 @@
   :init
   (setq org-export-backends '(ascii html icalendar latex odt md))
   :config
+  (require 'vulpea)
+
   ;; Indent (view only) headlines and text.
   (setq org-startup-indented t)
 
@@ -365,10 +367,15 @@
               (org-agenda-prefix-format "  %?-12t% s")))
             (todo
              ""
-             ((org-agenda-overriding-header "All")
+             ((org-agenda-overriding-header "All but work")
               (org-agenda-skip-function
                '(or (my-org-agenda-skip-file "tickler.org")
-                    (my-org-agenda-skip-file "inbox.org")))
+                    (my-org-agenda-skip-file "inbox.org")
+                    (my-org-agenda-skip-file-with-filetag "work")))
+              (org-agenda-prefix-format "  %-20:c%?-12t% s")))
+            (tags-todo
+             "work"
+             ((org-agenda-overriding-header "Work")
               (org-agenda-prefix-format "  %-20:c%?-12t% s")))))))
 
   ;; Do not split line when cursor in not at the end.
@@ -411,7 +418,12 @@
 
   (defun my-org-agenda-skip-file (filename)
     (when (string-suffix-p filename (buffer-file-name))
-      (point-max))))
+      (point-max)))
+
+  (defun my-org-agenda-skip-file-with-filetag (tag-to-skip)
+    (let ((tags (vulpea-buffer-tags-get)))
+      (when (member tag-to-skip tags)
+        (point-max)))))
 
 (use-package! org-journal
   :init
