@@ -358,16 +358,18 @@
   (setq org-agenda-custom-commands
         '(("g" "Getting Things Done"
            ((agenda "")
-            (tags "Inbox"
-                  ((org-agenda-overriding-header "Inbox")
-                   (org-tags-match-list-sublevels nil)))
+            (tags
+             "inbox"
+             ((org-agenda-overriding-header "Inbox")
+              (org-tags-match-list-sublevels nil)
+              (org-agenda-prefix-format "  %?-12t% s")))
             (todo
              ""
              ((org-agenda-overriding-header "All")
               (org-agenda-skip-function
                '(or (my-org-agenda-skip-file "tickler.org")
                     (my-org-agenda-skip-file "inbox.org")))
-              (org-agenda-prefix-format "  ")))))))
+              (org-agenda-prefix-format "  %-20:c%?-12t% s")))))))
 
   ;; Do not split line when cursor in not at the end.
   (setq org-M-RET-may-split-line nil)
