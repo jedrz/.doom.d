@@ -339,7 +339,13 @@
   (setq org-capture-templates
         `(("i" "Inbox" entry
            (file ,(concat (file-name-as-directory org-roam-directory) "inbox.org"))
-           "* TODO %? %U")
+           "* TODO %?\n%T")
+          ("l" "Read It Later" entry
+           (file ,(concat (file-name-as-directory org-roam-directory) "read_it_later.org"))
+           "* %?\n%U")
+          ("L" "Read It Later from clipboard" entry
+           (file ,(concat (file-name-as-directory org-roam-directory) "read_it_later.org"))
+           "* %(org-cliplink-capture)%?\n%U")
           ("T" "Tickler" entry
            (file+headline "~/Dokumenty/org/gtd/tickler.org" "Tickler")
            "* TODO %i%?\n\n%^t\n\n")
@@ -348,10 +354,7 @@
            "* %?\n\n%^T\n")
           ("A" "Appointment [Day]" entry
            (file  "~/Dokumenty/org/gtd/gcal.org")
-           "* %?\n\n%^t\n")
-          ("l" "Read It Later" entry
-           (file ,(concat (file-name-as-directory org-roam-directory) "read_it_later.org"))
-           "* %? %U")))
+           "* %?\n\n%^t\n")))
 
   (setq org-refile-targets '((org-agenda-files :maxlevel . 3))
         org-refile-use-outline-path 'file
