@@ -309,8 +309,7 @@
 
 (setq org-directory (file-truename"~/Dokumenty/org"))
 
-(defvar my-org-base-agenda-files '("~/Dokumenty/org/gtd/inbox.org"
-                                   "~/Dokumenty/org/gtd/gtd.org"
+(defvar my-org-base-agenda-files '("~/Dokumenty/org/gtd/gtd.org"
                                    "~/Dokumenty/org/gtd/tickler.org"
                                    "~/Dokumenty/org/gtd/gcal.org"))
 
@@ -445,6 +444,7 @@
 
 ;; Based on:
 ;; https://systemcrafters.net/build-a-second-brain-in-emacs/5-org-roam-hacks/
+;; https://systemcrafters.net/build-a-second-brain-in-emacs/capturing-notes-efficiently/
 ;; https://d12frosted.io/posts/2021-01-16-task-management-with-roam-vol5.html
 
 (setq org-roam-directory (file-truename "~/Dokumenty/org/roam"))
@@ -465,7 +465,10 @@
       :if-new (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n#+category: ${title}")
       :unnarrowed t)))
   :autoload
-  (my-org-roam-project-update-tag my-org-roam-agenda-files-update)
+  (my-org-roam-project-update-tag
+   my-org-roam-agenda-files-update
+   my-org-roam-capture-inbox
+   my-org-roam-capture-read-it-later)
   :init
   (add-hook 'find-file-hook #'my-org-roam-project-update-tag)
   (add-hook 'before-save-hook #'my-org-roam-project-update-tag)
@@ -532,6 +535,18 @@ tasks."
     (setq org-agenda-files (append my-org-base-agenda-files
                                    (my-org-roam-project-files))))
 
+  (defun my-org-roam-capture-inbox ()
+    (interactive)
+    (org-roam-capture- :node (org-roam-node-create)
+                       :templates '(("i" "inbox" entry "* %? %U"
+                                     :if-new (file+head "inbox.org" "#+title: Inbox\n")))))
+
+  (defun my-org-roam-capture-read-it-later ()
+    (interactive)
+    (org-roam-capture- :node (org-roam-node-create)
+                       :templates '(("l" "later" entry "* %? %U"
+                                     :if-new (file+head "read_it_later.org" "#+title: Read It Later\n")))))
+
   (org-roam-db-autosync-mode))
 
 (use-package! vulpea
@@ -567,7 +582,10 @@ tasks."
                   "C-c n b" #'consult-org-roam-backlinks
                   "C-c n l" #'consult-org-roam-forward-links
                   "C-c n i" #'org-roam-node-insert
-                  "C-c n w" #'org-roam-refile)))
+                  "C-c n w" #'org-roam-refile
+                  "C-c n N" #'org-roam-capture
+                  "C-c n c i" #'my-org-roam-capture-inbox
+                  "C-c n c l" #'my-org-roam-capture-read-it-later)))
 
 (use-package! ox-clip
   :defer t
