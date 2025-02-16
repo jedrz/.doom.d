@@ -483,13 +483,16 @@
 TODO entries marked as done are ignored, meaning the this
 function returns nil if current buffer contains only completed
 tasks."
-    (org-element-map
-        (org-element-parse-buffer 'headline)
-        'headline
-      (lambda (h)
-        (eq (org-element-property :todo-type h)
-            'todo))
-      nil 'first-match))
+    (and
+     (org-element-map
+         (org-element-parse-buffer 'headline)
+         'headline
+       (lambda (h)
+         (eq (org-element-property :todo-type h)
+             'todo))
+       nil 'first-match)
+     (let ((tags (vulpea-buffer-tags-get)))
+       (not (member "inactive" tags)))))
 
   (defun my-org-roam-project-files ()
     "Return a list of note files containing 'project' tag." ;
@@ -533,7 +536,9 @@ tasks."
   (defun my-org-roam-agenda-files-update (&rest _)
     "Update the value of `org-agenda-files'."
     (setq org-agenda-files (append my-org-base-agenda-files
-                                   (my-org-roam-project-files))))
+                                   (my-org-roam-project-files)
+                                   (list
+                                    (org-roam-node-file (org-roam-node-from-title-or-alias "inbox"))))))
 
   (defun my-org-roam-capture-inbox ()
     (interactive)
