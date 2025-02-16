@@ -325,8 +325,7 @@
   (setq org-use-speed-commands t)
 
   ;; Set up paths.
-  (setq org-agenda-files my-org-base-agenda-files
-        org-default-notes-file "~/Dokumenty/org/gtd/inbox.org")
+  (setq org-agenda-files my-org-base-agenda-files)
 
   (setq org-todo-keywords
         '((sequence "TODO(t)" "WAITING(w)" "|" "DONE(d)" "CANCELLED(c)")))
@@ -336,9 +335,9 @@
           ("CANCELLED" :foreground "forest green" :weight bold)))
 
   (setq org-capture-templates
-        '(("t" "Todo [inbox]" entry
-           (file "~/Dokumenty/org/gtd/inbox.org")
-           "* TODO %i%?")
+        `(("i" "Inbox" entry
+           (file ,(concat (file-name-as-directory org-roam-directory) "inbox.org"))
+           "* TODO %? %U")
           ("T" "Tickler" entry
            (file+headline "~/Dokumenty/org/gtd/tickler.org" "Tickler")
            "* TODO %i%?\n\n%^t\n\n")
@@ -347,7 +346,10 @@
            "* %?\n\n%^T\n")
           ("A" "Appointment [Day]" entry
            (file  "~/Dokumenty/org/gtd/gcal.org")
-           "* %?\n\n%^t\n")))
+           "* %?\n\n%^t\n")
+          ("l" "Read It Later" entry
+           (file ,(concat (file-name-as-directory org-roam-directory) "read_it_later.org"))
+           "* %? %U")))
 
   (setq org-refile-targets '((org-agenda-files :maxlevel . 3))
         org-refile-use-outline-path 'file
@@ -466,9 +468,7 @@
       :unnarrowed t)))
   :autoload
   (my-org-roam-project-update-tag
-   my-org-roam-agenda-files-update
-   my-org-roam-capture-inbox
-   my-org-roam-capture-read-it-later)
+   my-org-roam-agenda-files-update)
   :init
   (add-hook 'find-file-hook #'my-org-roam-project-update-tag)
   (add-hook 'before-save-hook #'my-org-roam-project-update-tag)
@@ -540,18 +540,6 @@ tasks."
                                    (list
                                     (org-roam-node-file (org-roam-node-from-title-or-alias "inbox"))))))
 
-  (defun my-org-roam-capture-inbox ()
-    (interactive)
-    (org-roam-capture- :node (org-roam-node-create)
-                       :templates '(("i" "inbox" entry "* %? %U"
-                                     :if-new (file+head "inbox.org" "#+title: Inbox\n")))))
-
-  (defun my-org-roam-capture-read-it-later ()
-    (interactive)
-    (org-roam-capture- :node (org-roam-node-create)
-                       :templates '(("l" "later" entry "* %? %U"
-                                     :if-new (file+head "read_it_later.org" "#+title: Read It Later\n")))))
-
   (org-roam-db-autosync-mode))
 
 (use-package! vulpea
@@ -588,9 +576,7 @@ tasks."
                   "C-c n l" #'consult-org-roam-forward-links
                   "C-c n i" #'org-roam-node-insert
                   "C-c n w" #'org-roam-refile
-                  "C-c n N" #'org-roam-capture
-                  "C-c n c i" #'my-org-roam-capture-inbox
-                  "C-c n c l" #'my-org-roam-capture-read-it-later)))
+                  "C-c n N" #'org-roam-capture)))
 
 (use-package! ox-clip
   :defer t
