@@ -470,6 +470,8 @@
 
 (use-package! org-roam
   :defer t
+  :bind-keymap
+  ("C-c n d" . org-roam-dailies-map)
   :custom
   (org-roam-capture-templates
    '(("d" "default" plain
