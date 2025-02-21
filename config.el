@@ -495,6 +495,7 @@
   (advice-add 'org-todo-list :before #'my-org-roam-agenda-files-update)
   :config
   (require 'vulpea)
+  (require 'org-roam-dailies) ;; Ensure the keymap is available
 
   (defun my-org-roam-project-p ()
     "Return non-nil if current buffer has any todo entry.
