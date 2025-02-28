@@ -232,6 +232,19 @@
 ;; Eval and replace anywhere.
 (bind-key "C-x E" #'eval-and-replace)
 
+;;; Projects
+
+;; Treemacs
+(use-package! treemacs
+  :defer t
+  :init
+  (add-hook 'doom-init-ui-hook
+            (lambda ()
+              (map! :map general-override-mode-map
+                    "C-c t t" #'treemacs)))
+  :config
+  ;; Automatically switch treemacs for the current buffer.
+  (treemacs-project-follow-mode))
 
 ;;; Major modes
 
