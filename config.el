@@ -343,11 +343,14 @@
   (setq org-agenda-files my-org-base-agenda-files)
 
   (setq org-todo-keywords
-        '((sequence "TODO(t)" "WAITING(w)" "|" "DONE(d)" "CANCELLED(c)")))
+        '((sequence "TODO(t!)" "WAITING(w!)" "|" "SOMEDAY(s!)" "DONE(d!)" "CANCELLED(c!)")))
 
   (setq org-todo-keyword-faces
         '(("WAITING" :foreground "orange" :weight bold)
-          ("CANCELLED" :foreground "forest green" :weight bold)))
+          ("CANCELLED" :foreground "forest green" :weight bold)
+          ("SOMEDAY" :foreground "dark green" :weight bold)))
+
+  (setq org-log-state-notes-into-drawer t)
 
   (setq org-capture-templates
         `(("i" "Inbox" entry
