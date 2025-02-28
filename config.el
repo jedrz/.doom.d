@@ -428,10 +428,6 @@
       (when (member tag-to-skip tags)
         (point-max)))))
 
-(use-package! org-journal
-  :init
-  (setq org-journal-dir "~/Dokumenty/org/journal/"))
-
 (use-package! org-superstar
   :defer t
   :init
