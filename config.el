@@ -350,6 +350,7 @@
           ("CANCELLED" :foreground "forest green" :weight bold)
           ("SOMEDAY" :foreground "dark green" :weight bold)))
 
+  ;; Log state transitions with timestamps into logbook drawer.
   (setq org-log-state-notes-into-drawer t)
 
   (setq org-capture-templates
