@@ -371,7 +371,11 @@
            "* %?\n\n%^T\n")
           ("A" "Appointment [Day]" entry
            (file  "~/Dokumenty/org/gtd/gcal.org")
-           "* %?\n\n%^t\n")))
+           "* %?\n\n%^t\n")
+          ("p" "Org Protocol" entry
+           (file+headline ,(concat (file-name-as-directory org-roam-directory) "inbox.org") "Org Protocol")
+           "* %^{Title}\n\n  Source: %u, %c\n\n  %i"
+           :empty-lines 1)))
 
   (setq org-refile-targets '((org-agenda-files :maxlevel . 3))
         org-refile-use-outline-path 'file
@@ -400,6 +404,11 @@
 
   ;; Do not split line when cursor in not at the end.
   (setq org-M-RET-may-split-line nil)
+
+  ;; Insert empty line before new heading.
+  (setq org-blank-before-new-entry
+        '((heading . t)
+          (plain-list-item . auto)))
 
   ;; Highlight source code.
   (setq org-src-fontify-natively t)
@@ -473,6 +482,12 @@
   :config
   (setq org-tree-slide-cursor-init nil)
   :bind (:map org-mode-map ("<f8>" . org-tree-slide-mode)))
+
+(use-package! org-protocol
+  :defer t
+  :config
+  (setq org-protocol-default-template-key "p"))
+
 
 ;; Based on:
 ;; https://systemcrafters.net/build-a-second-brain-in-emacs/5-org-roam-hacks/
