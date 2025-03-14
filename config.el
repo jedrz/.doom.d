@@ -317,17 +317,21 @@
 
 ;; Configuration based on https://emacs.cafe/emacs/orgmode/gtd/2017/06/30/orgmode-gtd.html
 
-(setq org-directory (file-truename"~/Dokumenty/org"))
-
-(defvar my-org-base-agenda-files '("~/Dokumenty/org/gtd/gtd.org"
-                                   "~/Dokumenty/org/gtd/tickler.org"
+(defvar my-org-base-agenda-files '("~/Dokumenty/org/gtd/tickler.org"
                                    "~/Dokumenty/org/gtd/gcal.org"))
 
 (use-package! org
   :defer t
   :init
+  (setq org-directory (file-truename "~/Dokumenty/org"))
   (setq org-export-backends '(ascii html icalendar latex odt md))
   :config
+  ;; Bring back original keybindings.
+  (map! :map org-mode-map
+        "C-RET" #'org-insert-heading-respect-content
+        "C-S-RET" #'org-insert-todo-heading-respect-content
+        [C-return] #'org-insert-heading-respect-content
+        [C-S-return] #'org-insert-todo-heading-respect-content)
   (require 'vulpea)
 
   ;; Indent (view only) headlines and text.
@@ -401,11 +405,6 @@
 
   ;; Do not split line when cursor in not at the end.
   (setq org-M-RET-may-split-line nil)
-
-  ;; Insert empty line before new heading.
-  (setq org-blank-before-new-entry
-        '((heading . t)
-          (plain-list-item . auto)))
 
   ;; Highlight source code.
   (setq org-src-fontify-natively t)
@@ -485,23 +484,22 @@
   :config
   (setq org-protocol-default-template-key "p"))
 
-
 ;; Based on:
 ;; https://systemcrafters.net/build-a-second-brain-in-emacs/5-org-roam-hacks/
 ;; https://systemcrafters.net/build-a-second-brain-in-emacs/capturing-notes-efficiently/
 ;; https://d12frosted.io/posts/2021-01-16-task-management-with-roam-vol5.html
 
-(setq org-roam-directory (file-truename "~/Dokumenty/org/roam"))
-
 (use-package! org-roam
   :defer t
   :bind-keymap
   ("C-c n d" . org-roam-dailies-map)
+  :init
+  (setq org-roam-directory (file-truename "~/Dokumenty/org/roam"))
   :custom
   (org-roam-capture-templates
    '(("d" "default" plain
       "%?"
-      :if-new (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n")
+      :if-new (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n#+category: ${title}")
       :unnarrowed t)
      ("b" "book notes" plain
       "\n* Pozycja\n\nAutor: %^{Autor}\nTytuł: ${title}\nRok: %^{Rok}\n\n* Podsumowanie\n\n%?"
