@@ -16,10 +16,8 @@
 ;; Enable only in text- and prog-modes.
 (use-package! display-fill-column-indicator
   :defer t
-  :init
-  (add-hook 'prog-mode-hook #'display-fill-column-indicator-mode)
-  (add-hook 'text-mode-hook #'display-fill-column-indicator-mode))
-
+  :hook
+  (prog-mode text-mode))
 
 ;;; General settings
 
@@ -126,7 +124,6 @@
   ("C-M-%" . vr/query-replace))
 
 ;; Text mode
-(add-hook 'text-mode-hook #'auto-fill-mode)
 (add-hook 'text-mode-hook #'flyspell-mode)
 
 ;; Wrap text with polish quotation characters.
