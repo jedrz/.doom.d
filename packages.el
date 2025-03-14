@@ -45,3 +45,6 @@
 (package! atomic-chrome)
 
 (package! pyvenv)
+
+;; Automatically balance window margins.
+(package! olivetti)

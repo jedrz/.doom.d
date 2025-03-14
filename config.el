@@ -631,6 +631,12 @@ tasks."
   :bind
   ("M-W" . ox-clip-formatted-copy))
 
+;; Automatically balance window margins.
+(use-package! olivetti
+  :defer t
+  :hook
+  (text-mode))
+
 ;; Smartparens
 (use-package! smartparens
   :defer t
