@@ -320,10 +320,11 @@
 (defvar my-org-base-agenda-files '("~/Dokumenty/org/gtd/tickler.org"
                                    "~/Dokumenty/org/gtd/gcal.org"))
 
+;; org-directory must be set before doom-package:org has loaded
+(setq org-directory (file-truename "~/Dokumenty/org"))
+
 (use-package! org
   :defer t
-  :init
-  (setq org-directory (file-truename "~/Dokumenty/org"))
   (setq org-export-backends '(ascii html icalendar latex odt md))
   :config
   ;; Bring back original keybindings.
