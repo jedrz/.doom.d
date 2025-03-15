@@ -451,11 +451,6 @@
       (when (member tag-to-skip tags)
         (point-max)))))
 
-(use-package! org-superstar
-  :defer t
-  :init
-  (add-hook #'org-mode-hook #'org-superstar-mode))
-
 (use-package! ox-jira
   :defer t
   :after ox
