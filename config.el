@@ -13,11 +13,11 @@
 (add-to-list 'initial-frame-alist '(fullscreen . maximized))
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
 
-;; Enable only in text- and prog-modes.
+;; Display fill column.
 (use-package! display-fill-column-indicator
   :defer t
   :hook
-  (prog-mode text-mode))
+  prog-mode)
 
 ;;; General settings
 
