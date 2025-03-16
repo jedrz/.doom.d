@@ -325,7 +325,6 @@
 
 (use-package! org
   :defer t
-  (setq org-export-backends '(ascii html icalendar latex odt md))
   :config
   ;; Bring back original keybindings.
   (map! :map org-mode-map
