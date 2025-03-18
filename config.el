@@ -377,16 +377,16 @@
               (org-agenda-prefix-format "  %?-12t% s")))
             (todo
              ""
-             ((org-agenda-overriding-header "All but work")
+             ((org-agenda-overriding-header "All")
               (org-agenda-skip-function
                '(or (my-org-agenda-skip-file "tickler.org")
                     (my-org-agenda-skip-file "inbox.org")
                     (my-org-agenda-skip-file-with-filetag "work")))
-              (org-agenda-prefix-format "  %-20:c%?-12t% s")))
-            (tags-todo
+              (org-agenda-prefix-format "  %-20:c%?-12t% s")))))
+          ("w" "Work"
+           ((tags-todo
              "work"
-             ((org-agenda-overriding-header "Work")
-              (org-agenda-prefix-format "  %-20:c%?-12t% s")))))))
+             ((org-agenda-prefix-format "  %-20:c%?-12t% s")))))))
 
   ;; Do not split line when cursor in not at the end.
   (setq org-M-RET-may-split-line nil)
