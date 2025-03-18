@@ -314,9 +314,6 @@
 
 ;; Configuration based on https://emacs.cafe/emacs/orgmode/gtd/2017/06/30/orgmode-gtd.html
 
-(defvar my-org-base-agenda-files '("~/Dokumenty/org/gtd/tickler.org"
-                                   "~/Dokumenty/org/gtd/gcal.org"))
-
 ;; org-directory must be set before doom-package:org has loaded
 (setq org-directory (file-truename "~/Dokumenty/org"))
 
@@ -336,9 +333,6 @@
 
   ;; Single key navigation for headlines.
   (setq org-use-speed-commands t)
-
-  ;; Set up paths.
-  (setq org-agenda-files my-org-base-agenda-files)
 
   (setq org-todo-keywords
         '((sequence "TODO(t!)" "WAITING(w!)" "|" "SOMEDAY(s!)" "DONE(d!)" "CANCELLED(c!)")))
@@ -362,14 +356,8 @@
            (file ,(concat (file-name-as-directory org-roam-directory) "read_it_later.org"))
            "* %(org-cliplink-capture)%?\n%U")
           ("T" "Tickler" entry
-           (file+headline "~/Dokumenty/org/gtd/tickler.org" "Tickler")
+           (file+headline ,(concat (file-name-as-directory org-roam-directory) "tickler.org") "Tickler")
            "* TODO %i%?\n\n%^t\n\n")
-          ("a" "Appointment" entry
-           (file  "~/Dokumenty/org/gtd/gcal.org")
-           "* %?\n\n%^T\n")
-          ("A" "Appointment [Day]" entry
-           (file  "~/Dokumenty/org/gtd/gcal.org")
-           "* %?\n\n%^t\n")
           ("p" "Org Protocol" entry
            (file+headline ,(concat (file-name-as-directory org-roam-directory) "inbox.org") "Org Protocol")
            "* %^{Title}\n\n  Source: %u, %c\n\n  %i"
@@ -512,12 +500,16 @@
   (require 'vulpea)
   (require 'org-roam-dailies) ;; Ensure the keymap is available
 
+  (defvar my-org-roam-agenda-static-nodes '("inbox" "tickler" "Google Calendar"))
+
   (defun my-org-roam-project-p ()
-    "Return non-nil if current buffer has any todo entry.
+    "Return non-nil if current buffer has any todo entry and is not excluded.
 
 TODO entries marked as done are ignored, meaning the this
 function returns nil if current buffer contains only completed
-tasks."
+tasks.
+
+Buffers having inactive tag or one of `my-org-roam-agenda-static-nodes' are excluded."
     (and
      (org-element-map
          (org-element-parse-buffer 'headline)
@@ -527,7 +519,9 @@ tasks."
              'todo))
        nil 'first-match)
      (let ((tags (vulpea-buffer-tags-get)))
-       (not (member "inactive" tags)))))
+       (not (member "inactive" tags)))
+     (let ((title (vulpea-buffer-title-get)))
+       (not (member title my-org-roam-agenda-static-nodes)))))
 
   (defun my-org-roam-project-files ()
     "Return a list of note files containing 'project' tag." ;
@@ -569,11 +563,13 @@ tasks."
           (file-name-directory buffer-file-name))))
 
   (defun my-org-roam-agenda-files-update (&rest _)
-    "Update the value of `org-agenda-files'."
-    (setq org-agenda-files (append my-org-base-agenda-files
-                                   (my-org-roam-project-files)
-                                   (list
-                                    (org-roam-node-file (org-roam-node-from-title-or-alias "inbox"))))))
+    "Update the value of `org-agenda-files' using project files and some static files."
+    (setq org-agenda-files
+          (append (my-org-roam-project-files)
+                  (mapcar #'org-roam-node-file
+                          (delq nil
+                                (mapcar #'org-roam-node-from-title-or-alias
+                                        my-org-roam-agenda-static-nodes))))))
 
   (org-roam-db-autosync-mode))
 
