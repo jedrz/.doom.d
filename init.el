@@ -51,8 +51,7 @@
 
        :checkers
        syntax              ; tasing you for every semicolon you forget
-       ;; TODO: configure again
-       ;;(spell +flyspell +everywhere) ; tasing you for misspelling mispelling
+       (spell +flyspell +everywhere) ; tasing you for misspelling mispelling
        ;;grammar           ; tasing grammar mistake every you make
 
        :tools

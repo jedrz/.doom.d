@@ -123,9 +123,6 @@
   :bind
   ("C-M-%" . vr/query-replace))
 
-;; Text mode
-(add-hook 'text-mode-hook #'flyspell-mode)
-
 ;; Wrap text with polish quotation characters.
 (after! smartparens
   (sp-local-pair 'text-mode "„" "”"))
