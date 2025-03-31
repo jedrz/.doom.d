@@ -488,6 +488,12 @@
      ("p" "project" plain "* Zadania\n\n** TODO Pierwsze zadanie\n\n"
       :if-new (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n#+category: ${title}")
       :unnarrowed t)))
+  ;; Add name of day to title of a daily.
+  (org-roam-dailies-capture-templates
+   `(("d" "default" entry
+      "* %?"
+      :target (file+head "%<%Y-%m-%d>.org"
+                         "#+title: %<%Y-%m-%d %A>\n"))))
   :autoload
   (my-org-roam-project-update-tag
    my-org-roam-agenda-files-update)
