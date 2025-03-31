@@ -483,7 +483,7 @@
       :unnarrowed t)
      ("b" "book notes" plain
       "\n* Pozycja\n\nAutor: %^{Autor}\nTytuł: ${title}\nRok: %^{Rok}\n\n* Podsumowanie\n\n%?"
-      :if-new (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n")
+      :if-new (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title} - %^{Autor}\n")
       :unnarrowed t)
      ("p" "project" plain "* Zadania\n\n** TODO Pierwsze zadanie\n\n"
       :if-new (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n#+category: ${title}")
