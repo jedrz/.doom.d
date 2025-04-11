@@ -624,7 +624,11 @@ Buffers having inactive tag or one of `my-org-roam-agenda-static-nodes' are excl
 (use-package! olivetti
   :defer t
   :hook
-  (text-mode))
+  (text-mode . my-enable-olivetti-except-some-modes)
+  :init
+  (defun my-enable-olivetti-except-some-modes ()
+    (unless (derived-mode-p '(yaml-mode))
+      (olivetti-mode 1))))
 
 ;; Smartparens
 (use-package! smartparens
