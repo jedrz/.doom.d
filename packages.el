@@ -46,3 +46,6 @@
 
 ;; Automatically balance window margins.
 (package! olivetti)
+
+;; Guess ispell dictionary language.
+(package! guess-language)

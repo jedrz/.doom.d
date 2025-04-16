@@ -226,6 +226,22 @@
 ;; Eval and replace anywhere.
 (bind-key "C-x E" #'eval-and-replace)
 
+(use-package! ispell
+  :init
+  (defun my-set-ispell-dictionary-in-prog-mode ()
+    (setq-local ispell-local-dictionary "en"))
+  (defun my-set-ispell-dictionary-in-text-mode ()
+    (setq-local ispell-local-dictionary "pl"))
+  (add-hook 'prog-mode-hook #'my-set-ispell-dictionary-in-prog-mode)
+  (add-hook 'text-mode-hook #'my-set-ispell-dictionary-in-text-mode))
+
+;; Guess ispell dictionary language.
+(use-package! guess-language
+  :hook
+  text-mode
+  :config
+  (setq guess-language-languages '(en pl)))
+
 ;;; Projects
 
 ;; Treemacs
@@ -330,6 +346,9 @@
 
   ;; Indent (view only) headlines and text.
   (setq org-startup-indented t)
+
+  ;; Startup
+  (setq org-startup-folded 'show2levels)
 
   ;; Single key navigation for headlines.
   (setq org-use-speed-commands t)
