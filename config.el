@@ -399,11 +399,11 @@
                '(or (my-org-agenda-skip-file "tickler.org")
                     (my-org-agenda-skip-file "inbox.org")
                     (my-org-agenda-skip-file-with-filetag "work")))
-              (org-agenda-prefix-format "  %-20:c%?-12t% s")))))
+              (org-agenda-prefix-format "  %-24:c%?-12t% s")))))
           ("w" "Work"
            ((tags-todo
              "work"
-             ((org-agenda-prefix-format "  %-20:c%?-12t% s")))))))
+             ((org-agenda-prefix-format "  %-24:c%?-12t% s")))))))
 
   ;; Do not split line when cursor in not at the end.
   (setq org-M-RET-may-split-line nil)
