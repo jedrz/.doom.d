@@ -74,6 +74,7 @@
        clojure
        data
        emacs-lisp
+       (go +lsp)
        (haskell +lsp)
        json
        (java +lsp)
