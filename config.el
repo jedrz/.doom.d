@@ -443,6 +443,9 @@
   ;; Never evaluate blocks when exporting.
   (setq org-export-babel-evaluate nil)
 
+  ;; Always display inline images.
+  (setq org-startup-with-inline-images t)
+
   (defun my-org-agenda-skip-file (filename)
     (when (string-suffix-p filename (buffer-file-name))
       (point-max)))
