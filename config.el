@@ -790,3 +790,8 @@ Buffers having inactive tag or one of `my-org-roam-agenda-static-nodes' are excl
 (use-package! atomic-chrome
   :init
   (atomic-chrome-start-server))
+
+(use-package! latex
+  :config
+  (setq LaTeX-indent-level 0)
+  (setq +latex-indent-item-continuation-offset nil))

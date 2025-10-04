@@ -79,6 +79,7 @@
        json
        (java +lsp)
        (javascript +lsp)
+       latex
        lua
        markdown
        (org +crypt +pretty +roam2)
