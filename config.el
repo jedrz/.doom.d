@@ -186,6 +186,10 @@
 ;; Activate occur inside isearch with C-o.
 (define-key isearch-mode-map (kbd "C-o") 'isearch-occur)
 
+(use-package isearch
+  :config
+  (setq isearch-lazy-count t))
+
 ;; Join line.
 (bind-key "C-x j" #'join-line)
 (bind-key "C-x J" (lambda (arg)
