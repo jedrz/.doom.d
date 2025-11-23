@@ -82,7 +82,7 @@
        latex
        lua
        markdown
-       (org +crypt +pretty +roam2 +dragndrop)
+       (org +crypt +pretty +roam +dragndrop)
        (python +lsp)
        (scala +lsp)
        sh
