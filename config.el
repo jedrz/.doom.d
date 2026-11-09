@@ -4,7 +4,7 @@
 (load "private.el")
 
 ;;; Appearance
-(setq doom-font "JetBrains Mono 10")
+(setq doom-font "JetBrains Mono 11")
 
 ;; Absolute line numbers.
 (setq display-line-numbers-type t)
@@ -447,8 +447,8 @@
   ;; Never evaluate blocks when exporting.
   (setq org-export-babel-evaluate nil)
 
-  ;; Always display inline images.
-  (setq org-startup-with-inline-images t)
+  ;; Don't start with inline images displayed - it's too slow.
+  (setq org-startup-with-inline-images nil)
 
   (defun my-org-agenda-skip-file (filename)
     (when (string-suffix-p filename (buffer-file-name))
@@ -514,7 +514,7 @@
       :unnarrowed t)))
   ;; Add name of day to title of a daily.
   (org-roam-dailies-capture-templates
-   `(("d" "default" entry
+   `(("d" "default" plain
       "* %?"
       :target (file+head "%<%Y-%m-%d>.org"
                          "#+title: %<%Y-%m-%d %A>\n"))))

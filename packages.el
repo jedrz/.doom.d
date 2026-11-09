@@ -30,8 +30,7 @@
 
 (package! vulpea)
 
-;; Revert pin when consult will be upgraded by doom having consult-source-buffer.
-(package! consult-org-roam :pin "a6dec09dcd06a3014409044399c4f8860ca45ef1")
+(package! consult-org-roam)
 
 (package! ox-clip)
 
