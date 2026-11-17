@@ -242,7 +242,8 @@
 ;; Guess ispell dictionary language.
 (use-package! guess-language
   :config
-  (setq guess-language-languages '(en pl)))
+  (setq guess-language-languages '(en pl))
+  :hook text-mode)
 
 ;;; Projects
 
