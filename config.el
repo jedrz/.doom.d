@@ -241,9 +241,22 @@
 
 ;; Guess ispell dictionary language.
 (use-package! guess-language
+  :autoload my-guess-buffer-dictionary
+  :hook text-mode
+  :init
+  ;; Depth -100: runs before flyspell. The first call loads guess-language,
+  ;; which runs :config below, which defines the function.
+  (add-hook 'text-mode-hook #'my-guess-buffer-dictionary -100)
   :config
   (setq guess-language-languages '(en pl))
-  :hook text-mode)
+  
+  (defun my-guess-buffer-dictionary ()
+    "Set the buffer's dictionary from its contents before flyspell runs."
+    (when (> (buffer-size) 0)
+      (when-let* ((lang (ignore-errors
+                          (guess-language-region (point-min) (point-max))))
+                  (dict (cadr (assq lang guess-language-langcodes))))
+        (setq-local ispell-local-dictionary dict)))))
 
 ;;; Projects
 
