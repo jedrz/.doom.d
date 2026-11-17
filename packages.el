@@ -20,8 +20,6 @@
 
 (package! highlight-symbol)
 
-(package! ox-jira)
-
 (package! orgtbl-aggregate)
 
 (package! org-gcal)

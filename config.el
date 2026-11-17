@@ -460,12 +460,6 @@
       (when (member tag-to-skip tags)
         (point-max)))))
 
-(use-package! ox-jira
-  :defer t
-  :after ox
-  :init
-  (require 'ox-jira))
-
 (use-package! orgtbl-aggregate
   :defer t)
 
